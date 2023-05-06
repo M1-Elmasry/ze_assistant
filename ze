@@ -1,0 +1,40 @@
+#!/bin/python
+
+import sys
+import sqlite3
+from actions import *
+
+
+def main() -> None:
+
+    con = sqlite3.connect("data.db")
+    cur = con.cursor()
+    cur.execute("CREATE TABLE IF NOT EXISTS data(alias, commands)")
+
+    argv = sys.argv[:]
+    actions = {"add" : add, "remove" : remove, "list" : list,
+               "browser_workspace" : workspace, "help" : help}
+
+
+    if len(argv) > 2:
+        print("invalid use\n",
+              "too many arguments\n",
+              "\"ze help\"")
+
+    elif len(argv) < 2:
+        print("invalid use\n",
+              "no arguments\n",
+              "\"ze help\"")
+    else:
+        if (argv[1] in actions.keys()):
+            actions[argv[1]](argv, cur)
+        else:
+            print(f"unkown action \"{argv[1]}\"\n",
+               "ze help")
+
+    con.commit()
+    con.close()
+
+if __name__ == "__main__":
+    main()
+
