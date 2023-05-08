@@ -13,11 +13,11 @@ actions:
 
 to install it
 ```
-git clone https://github.com/M1-Elmasry/ze_assistant.git  && cd ze/
+git clone https://github.com/M1-Elmasry/ze_assistant.git  && cd ze_assistant/
 ```
 ```
 chmod +700 ./install.sh
 ```
 ```
-./install.sh
+sudo ./install.sh
 ```
