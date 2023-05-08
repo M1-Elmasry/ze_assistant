@@ -3,7 +3,7 @@
 import sys
 import sqlite3
 from actions import *
-
+from exec import *
 
 def main() -> None:
 
@@ -17,24 +17,22 @@ def main() -> None:
 
 
     if len(argv) > 2:
-        print("invalid use\n",
-              "too many arguments\n",
-              "\"ze help\"")
+        print("invalid use too many arguments")
 
     elif len(argv) < 2:
-        print("invalid use\n",
-              "no arguments\n",
-              "\"ze help\"")
+        print("invalid use no arguments")
+
     else:
         if (argv[1] in actions.keys()):
             actions[argv[1]](argv, cur)
-        else:
-            print(f"unkown action \"{argv[1]}\"\n",
-               "ze help")
+
+        elif (execute(argv[1], cur) == -1):
+            print(f"unkown action or unknown alias \"{argv[1]}\"")
+            print("\"ze list\"")
+            actions['help'](argv, cur)
 
     con.commit()
     con.close()
 
 if __name__ == "__main__":
     main()
-
