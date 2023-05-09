@@ -11,8 +11,12 @@ def execute(argv: list, cur: object) -> int:
                 if (browser in command):
                     if (input("you want to close existing browser sessions y or n: ") == "y"):
                         os.system(f"killall -9 {browser}")
-                os.system(f"{command} {' '.join(argv[2:])}") # to execute any command after alias name
-                # say the user type "ze add <file_name>" and "add" is equal "git add"
-                # in this case ze must execute all line "ze "git add" <file_name>"
+                if (len(argv) > 2):
+                    os.system(f"{command} {' '.join(argv[2:])}") # to execute any command after alias name
+                    # say the user type "ze add <file_name>" and "add" is equal "git add"
+                    # in this case ze must execute all line "ze "git add" <file_name>"
+                else:
+                    os.system(command)
+
             return (0)
     return (-1)
