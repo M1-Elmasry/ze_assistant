@@ -6,8 +6,9 @@ from actions import *
 from exec import *
 
 def main() -> None:
-
-    con = sqlite3.connect("data.db")
+    
+    home_dir = os.getenv("HOME")
+    con = sqlite3.connect(f"{home_dir}/data.db")
     cur = con.cursor()
     cur.execute("CREATE TABLE IF NOT EXISTS data(alias, commands)")
 
@@ -15,18 +16,15 @@ def main() -> None:
     actions = {"add" : add, "remove" : remove, "list" : list,
                "browser_workspace" : workspace, "help" : help}
 
-
-    if len(argv) > 2:
-        print("invalid use too many arguments")
-
-    elif len(argv) < 2:
+    if len(argv) < 2:
         print("invalid use no arguments")
+        actions['help'](argv, cur)
 
     else:
         if (argv[1] in actions.keys()):
             actions[argv[1]](argv, cur)
 
-        elif (execute(argv[1], cur) == -1):
+        elif (execute(argv, cur) == -1):
             print(f"unkown action or unknown alias \"{argv[1]}\"")
             print("\"ze list\"")
             actions['help'](argv, cur)
