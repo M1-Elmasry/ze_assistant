@@ -45,7 +45,7 @@ def workspace(argv: list, cur: object) -> None:
 
     for i in range(tabs_num):
         swap = input(f"enter url of tab {i+1}: ")
-        urls.append(swap)
+        urls.append(f"\"{swap}\"")
 
     str_urls = " ".join(urls)
 
